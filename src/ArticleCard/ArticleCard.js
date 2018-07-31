@@ -1,10 +1,10 @@
 import React from 'react';
-
+import './ArticleCard.css'; 
 const ArticleCard = (props) => {  
         return (
-            <div>
-                <p>Source: props.source</p>
-                <p>Title: props.title</p>
+            <div className= "ArticleCard">
+                <p>Source: {props.source}</p>
+                <p>Title: {props.title}</p>
                 <img src= {props.url} /> 
             </div>
         )

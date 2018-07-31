@@ -5,6 +5,9 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+  position: relative;
+  top: 60px;
+  left: -700px;
 }
 
 .App-header {
@@ -16,6 +19,9 @@
 
 .App-title {
   font-size: 1.5em;
+  position: relative;
+  top: 40px;
+  left: -600px;
 }
 
 .App-intro {
