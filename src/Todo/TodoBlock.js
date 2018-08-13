@@ -1,18 +1,36 @@
-import React, { Component } from 'react';
+import React,{Component} from 'react';
+const firebase = require("firebase");
 
+const config = {
+    apiKey: "AIzaSyDKc6_TFhdiOJqAsda5qj77ddBG2G6Z25o",
+    authDomain: "socialstudent-593f2.firebaseapp.com",
+    databaseURL: "https://socialstudent-593f2.firebaseio.com",
+    projectId: "socialstudent-593f2",
+    storageBucket: "socialstudent-593f2.appspot.com",
+    messagingSenderId: "155926944573"
+  };
+
+
+
+firebase.initializeApp(config);
+//REMEMBER YOU ARE USEING FIREBASE NOT FIRESTORE CHECK FIRESASE FOR MROE INFO
 class TodoBlock extends Component {
+   submitData(event){
+       event.preventDefault(); 
+       firebase.database().ref('/Users/Rohan/Tasks').set({
+           firstName: event
+       })
+   }
 
-    render() {
-        return (
+
+    
+    render(){
+        return(
             <div>
-                <head>
-  <!-- React JS -->
-  <script src="http://fb.me/react-0.10.0.min.js"></script>
-  <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
-
-  <!-- Firebase JS -->
-  <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
-</head>
+                <form onSubmit={this.submitData}>
+            <input type="text"  />  
+            <input type="submit" value="Submit"/>
+            </form>
                 </div>
         )
     }

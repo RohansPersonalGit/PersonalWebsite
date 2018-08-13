@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+//import {init as firebaseInit} from 'javascripts/firebase'
+import TodoBlock from './Todo/TodoBlock'; 
 import Weather from './Weather/Weather';
 import ArticleBlock from './ArticleCard/ArticleBlock'
 class App extends Component {
@@ -18,8 +20,8 @@ class App extends Component {
           <h1 className="App-title">SocialStudent</h1>
         </header>
         <Weather/>
+        <TodoBlock/>
         <ArticleBlock/>
-        
       </div>
     );
   }
