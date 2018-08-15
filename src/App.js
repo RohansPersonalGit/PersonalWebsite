@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 //import {init as firebaseInit} from 'javascripts/firebase'
-import TodoBlock from './Todo/TodoBlock'; 
-import Weather from './Weather/Weather';
-import ArticleBlock from './ArticleCard/ArticleBlock'
+import TodoBlock from './containers/todoblock/TodoBlock'; 
+import Weather from './containers/Weather/Weather';
+import ArticleBlock from './containers/articleblock/ArticleBlock'
 class App extends Component {
  
   
