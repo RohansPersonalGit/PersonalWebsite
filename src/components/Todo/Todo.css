@@ -1,0 +1,30 @@
+.Todo{
+    width: 50%; 
+    margin: 16px auto; 
+    border: 1px solid #eee; 
+    box-shadow: 0 4px 6px #ccc ;
+    padding: 16px; 
+    text-align: center;
+    list-style-type: none;
+ 
+}
+img {
+    display: inline;
+    max-width:230px;
+    max-height:200;
+    width: auto;
+    height: auto;
+    list-style-type: none;
+
+  }
+  .topleft {
+    position: absolute;
+    top: 153px;
+    left: -100px;
+    font-size: 18px;
+    list-style-type: none;
+
+}
+li{
+    list-style-type:none;
+    }

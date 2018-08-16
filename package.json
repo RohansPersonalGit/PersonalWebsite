@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "ajv": "^6.5.2",
+    "expect-jsx": "^5.0.0",
     "uglify-js-brunch": "^2.10.0"
   }
 }

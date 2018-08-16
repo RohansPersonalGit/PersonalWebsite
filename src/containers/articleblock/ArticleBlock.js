@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ArticleCard from './ArticleCard';
-import './ArticleCard.css'; 
+import ArticleCard from '../../components/ArticleCard/ArticleCard';
+import '../../components/ArticleCard/ArticleCard.css'; 
 var url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=593001f60f42467ea12cf21c71d5f560'
 class ArticleBlock extends Component {
     state = {
@@ -20,13 +20,13 @@ class ArticleBlock extends Component {
               newsArticles = newsArticles.slice(0,size);
                 fields = (<div key= '2'>
                   {newsArticles.map((article, index) =>{  
-                      console.log(article);  
+                     // console.log(article);  
 
                 return (<li key= {index}><ArticleCard  source= {article.source.name} title= {article.title} url = {article.urlToImage}/></li>)
             })} </div> )
             self.setState({articles: fields});
           })
-          console.log(fields); 
+          //console.log(fields); 
           
     }
       
