@@ -22,6 +22,7 @@ class App extends Component {
         <Weather/>
         <TodoBlock/>
         <ArticleBlock/>
+        
       </div>
     );
   }
