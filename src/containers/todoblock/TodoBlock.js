@@ -24,23 +24,26 @@ class TodoBlock extends Component {
    constructor(props){
        super(props); 
     this.submitData = this.submitData.bind(this);
-this.onInputChange = this.onInputChange.bind(this);     }
+    this.onInputChange = this.onInputChange.bind(this); 
+    }
     
    submitData(event){
     event.preventDefault(); 
-    const data = new FormData(event.target); 
-    console.log(event.target.value); 
+    var data = this.state.query; 
     var postListRef = firebase.database().ref('/Tasks/Rohan/'); 
     var newPostRef = postListRef.push();
-    var newTask = new FormData(event.target); 
-    console.log(event.target); 
     newPostRef.set({
-        task: newTask
+        task: data
+    }).then(()=>{
+        var len = this.state.length; 
+        len = len+1; 
+        var taskData = this.state.tasks; 
+        taskData.push({task: data}); 
+        console.log(taskData); 
+        this.setState({tasks: taskData, length: len, query: "" })
     });
-    var len = this.state.length; 
-    len = len+1; 
-    var temp = (<li key= {len}><Todo task={newTask}/></li>); 
-    this.setState({tasks: [...this.state.tasks, temp], length: len })
+
+    
    
    }
    //form the array of TODO components in the component did MOunt cause you dont do that shit on an unmounted component
@@ -53,31 +56,42 @@ this.onInputChange = this.onInputChange.bind(this);     }
            }))           
       }).then(() =>{   
     var len = temp.length; 
+    var quer = this.state.query; 
+    
     console.log("this fuar"); 
-    this.setState({tasks: temp, length: len});
+    this.setState({tasks: temp, length: len, query: quer});
     }) 
        
         
    
 }
 onInputChange(event){
-    this.setState({query : event.target.value});
+    var og = this.state.query; 
+    console.log(og); 
+    var newQuery = event.target.value; 
+    console.log(newQuery);
+
+    this.setState({query: event.target.value});
+    console.log(this.state.query)
+    console.log(this.state.tasks);
 }
 
 
     
     render(){
         var temp = this.state.tasks; 
-        const finalTasks = (<div key="2">
+        console.log(temp); 
+        const finalTasks = (<div >
         {temp.map((todoItem, index) => { 
+            console.log(todoItem)
             return (<li key={index}><Todo task={todoItem.task}/></li>)
 })}
 </div>)
         return(
-            <div key="1">                
+            <div >                
                 {finalTasks}
-                <form onSubmit={this.submitData.bind(this)}>
-            <input  type={this.state.query} onChange={this.onInputChange.bind(this)}/>  
+                <form onSubmit={this.submitData}>
+            <input   onChange={this.onInputChange} value = {this.state.query}/>  
             <input type="submit" value="Submit"/>
             </form>
                 </div>
