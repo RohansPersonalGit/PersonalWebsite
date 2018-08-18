@@ -19,9 +19,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">SocialStudent</h1>
         </header>
+        <ArticleBlock/>
         <Weather/>
         <TodoBlock/>
-        <ArticleBlock/>
+        
         
       </div>
     );

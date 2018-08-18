@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import './ArticleBlock.css'; 
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
-import '../../components/ArticleCard/ArticleCard.css'; 
 var url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=593001f60f42467ea12cf21c71d5f560'
 class ArticleBlock extends Component {
     state = {
@@ -33,7 +33,7 @@ class ArticleBlock extends Component {
     render(){
        
         return (
-            <div key= '1'className="topleft">
+            <div key= '1'className="ArticleBlock">
                 {this.state.articles}
                 </div> 
         

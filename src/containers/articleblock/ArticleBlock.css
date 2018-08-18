@@ -1,4 +1,11 @@
 .ArticleBlock{
+    margin-top: 40px;
+    margin-bottom: 3px;
+    margin-right: 1px;
+    margin-left: 0px;
     list-style-type: none;
+    position: fixed;
+    left: 0px; 
+    top: 150px; 
 
 }

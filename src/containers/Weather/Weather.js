@@ -18,7 +18,7 @@ class Weather extends Component {
       var weatherInfo = {    
       }; 
       fetch(
-        'http://api.openweathermap.org/data/2.5/weather?q=vancouver&units=metric&appid=5eb4439195011dfce08d1e7adaa3a135'
+        'https://api.openweathermap.org/data/2.5/weather?q=vancouver&units=metric&appid=5eb4439195011dfce08d1e7adaa3a135'
       ).then(function(response){
         return response.json(); 
       }).then(function(myJson){
@@ -31,7 +31,7 @@ class Weather extends Component {
               city: weatherInfo.name, 
               temp: weatherInfo.temp,
               description: weatherInfo.description
-            }]}) 
+            }]})   
       }.bind(this)).catch(function(){
         console.log("fetch failed"); 
         this.setState({
@@ -44,13 +44,15 @@ class Weather extends Component {
       })
     }
     render(){  
-      console.log("render")             
+      console.log(this.state.weatherIn[0].city)             
         return (
         <div className="Weather" >
-            <p>City: {this.state.weatherIn[0].city}</p>
-            <p>Temperature: {this.state.weatherIn[0].temp}</p>
-            <p>Description: {this.state.weatherIn[0].description}</p>        
+            <p className="WeatherContent">City: {this.state.weatherIn[0].city}</p>
+            <p className="WeatherContent">Temperature: {this.state.weatherIn[0].temp}</p>
+            <p className="WeatherContent">Description: {this.state.weatherIn[0].description}</p>        
         </div>
     )}
 }; 
 export default Weather; 
+//login
+//init//deploy
