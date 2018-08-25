@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import Todo from '../../components/Todo/Todo'; 
-
+import './TodoBlock.css'
 const firebase = require("firebase");
 const config = {
     apiKey: "*****",
@@ -27,38 +27,45 @@ class TodoBlock extends Component {
     this.onInputChange = this.onInputChange.bind(this); 
     }
     
+   removeTodo(arg){
+    let postlistref= firebase.database().ref('/Tasks/Rohan/')
+    postlistref.child(arg)
+       let filtertasks = this.state.tasks
+       let newTasks = filtertasks.splice(arg); 
+       this.setState({tasks: newTasks});
+       
+   } 
    submitData(event){
     event.preventDefault(); 
     var data = this.state.query; 
-    var postListRef = firebase.database().ref('/Tasks/Rohan/'); 
-    var newPostRef = postListRef.push();
-    newPostRef.set({
-        task: data
-    }).then(()=>{
+    let postlistref= firebase.database().ref('/Tasks/Rohan/').push()
+        postlistref.set({
+            task: data
+        })
         var len = this.state.length; 
-        len = len+1; 
-        var taskData = this.state.tasks; 
-        taskData.push({task: data}); 
-        console.log(taskData); 
-        this.setState({tasks: taskData, length: len, query: "" })
-    });
-
-    
-   
+        len = len+1;
+        let newData = new Object(); 
+        newData.task = data; 
+        let newKey = postlistref.key; 
+        newData.key= newKey; 
+        let taskData = this.state.tasks;
+        taskData.push(newData); 
+        this.setState({tasks: taskData, length: len, query: "" }) 
    }
    //form the array of TODO components in the component did MOunt cause you dont do that shit on an unmounted component
    componentDidMount(){
+       console.log("hsdfas"); 
     var temp=[]; 
     var listRef = firebase.database().ref('/Tasks/Rohan/'); 
     listRef.once('value', data =>{
     data.forEach(((child) => {
-      temp.push(child.val()); 
-           }))           
-      }).then(() =>{   
+     let newTasks = new Object(); 
+     newTasks.task = child.val(); 
+     newTasks.key= child.key; 
+     temp.push(newTasks); }))
+    }).then(() =>{   
     var len = temp.length; 
     var quer = this.state.query; 
-    
-    console.log("this fuar"); 
     this.setState({tasks: temp, length: len, query: quer});
     }) 
        
@@ -66,31 +73,23 @@ class TodoBlock extends Component {
    
 }
 onInputChange(event){
-    var og = this.state.query; 
-    console.log(og); 
     var newQuery = event.target.value; 
-    console.log(newQuery);
-
-    this.setState({query: event.target.value});
-    console.log(this.state.query)
-    console.log(this.state.tasks);
+    this.setState({query: newQuery});
+  
 }
-
-
-    
     render(){
+        console.log('calledRender');
         var temp = this.state.tasks; 
-        console.log(temp); 
         const finalTasks = (<div >
         {temp.map((todoItem, index) => { 
-            console.log(todoItem)
-            return (<li key={index}><Todo task={todoItem.task}/></li>)
+            console.log(todoItem); 
+            return (<li key={index}><Todo task={todoItem.task.task}/><button id={index} className="RemoveTodo" onClick={() => this.removeTodo(index)}/></li>)
 })}
 </div>)
         return(
             <div >                
                 {finalTasks}
-                <form onSubmit={this.submitData}>
+                <form onSubmit={this.submitData.bind(this)}>
             <input   onChange={this.onInputChange} value = {this.state.query}/>  
             <input type="submit" value="Submit"/>
             </form>
