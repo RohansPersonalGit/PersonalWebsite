@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+
 import Todo from '../../components/Todo/Todo'; 
 import './TodoBlock.css'
 const firebase = require("firebase");
@@ -35,13 +36,17 @@ class TodoBlock extends Component {
        this.setState({tasks: newTasks});
        
    } 
+
+
+   ///ALL OG tasks show up as task.task.
+   //all new tasks on input change show up as task and than after referesh are stored as task 
    submitData(event){
     event.preventDefault(); 
     var data = this.state.query; 
     let postlistref= firebase.database().ref('/Tasks/Rohan/').push()
-        postlistref.set({
-            task: data
-        })
+    postlistref.set({
+        task: data
+    }).then(()=>{
         var len = this.state.length; 
         len = len+1;
         let newData = new Object(); 
@@ -50,7 +55,11 @@ class TodoBlock extends Component {
         newData.key= newKey; 
         let taskData = this.state.tasks;
         taskData.push(newData); 
-        this.setState({tasks: taskData, length: len, query: "" }) 
+        this.setState({tasks: taskData, length: len, query: "" });
+        this.setState();  
+
+    })
+ 
    }
    //form the array of TODO components in the component did MOunt cause you dont do that shit on an unmounted component
    componentDidMount(){
@@ -60,7 +69,7 @@ class TodoBlock extends Component {
     listRef.once('value', data =>{
     data.forEach(((child) => {
      let newTasks = new Object(); 
-     newTasks.task = child.val(); 
+     newTasks.task = child.val().task; 
      newTasks.key= child.key; 
      temp.push(newTasks); }))
     }).then(() =>{   
@@ -73,17 +82,17 @@ class TodoBlock extends Component {
    
 }
 onInputChange(event){
-    var newQuery = event.target.value; 
+    let newQuery = event.target.value; 
     this.setState({query: newQuery});
   
 }
     render(){
         console.log('calledRender');
-        var temp = this.state.tasks; 
+        let temp = this.state.tasks; 
         const finalTasks = (<div >
         {temp.map((todoItem, index) => { 
             console.log(todoItem); 
-            return (<li key={index}><Todo task={todoItem.task.task}/><button id={index} className="RemoveTodo" onClick={() => this.removeTodo(index)}/></li>)
+            return (<li key={todoItem.key}><Todo task={todoItem.task}/><button id={index} className="RemoveTodo" onClick={() => this.removeTodo(index)}/></li>)
 })}
 </div>)
         return(

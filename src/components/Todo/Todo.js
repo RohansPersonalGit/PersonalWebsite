@@ -1,4 +1,5 @@
 import React from 'react'; 
+import Hoc from '../../hoc/Hoc'; 
 const Todo = (props) =>{
     return (
         <div className = "Todo">
@@ -6,4 +7,4 @@ const Todo = (props) =>{
         </div>
     )
 }
-export default Todo; 
+export default Hoc(Todo); 
