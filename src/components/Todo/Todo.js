@@ -7,4 +7,4 @@ const Todo = (props) =>{
         </div>
     )
 }
-export default Hoc(Todo); 
+export default Todo; 

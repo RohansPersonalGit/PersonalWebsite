@@ -4,40 +4,49 @@ import ArticleCard from '../../components/ArticleCard/ArticleCard';
 var url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=593001f60f42467ea12cf21c71d5f560'
 class ArticleBlock extends Component {
     state = {
-        articles: "4" 
+        articles: 1 
     }
     
     componentDidMount(){
-        var self = this; 
-        var fields; 
+        let self = this; 
+        let fields= []; 
         fetch(
             url
           ).then(function(response){
             return response.json(); 
           }).then(function(myJson){
               let newsArticles = myJson.articles;
-              var size = 3; 
-              newsArticles = newsArticles.slice(0,size);
-                fields = (<div key= '2'>
-                  {newsArticles.map((article, index) =>{  
-                     // console.log(article);  
-
-                return (<li key= {index}><ArticleCard  source= {article.source.name} title= {article.title} url = {article.urlToImage}/></li>)
-            })} </div> )
+              fields = newsArticles.map((article)=>{
+                  let articleState = new Object(); 
+                  articleState.source = article.source.name; 
+                  articleState.title = article.title; 
+                  articleState.urlToImage = article.urlToImage;
+                  return articleState; 
+              }) 
             self.setState({articles: fields});
           })
-          //console.log(fields); 
-          
     }
-      
     render(){
-       
-        return (
+        let self = this; 
+        let newsArticles = self.state.articles;
+        console.log(newsArticles);
+        if(newsArticles==1){
+            return(
+                <div className="ArticleBlock">
+                </div>
+            )
+        }
+        else
+        {
+            newsArticles.splice(3);
+            return (
             <div key= '1'className="ArticleBlock">
-                {this.state.articles}
+                  {newsArticles.map((article, index) =>{  
+                return (<li key= {index}><ArticleCard  source= {article.source.name} title= {article.title} url = {article.urlToImage}/></li>)
+            })} 
                 </div> 
         
-    )}
+    )}}
 }; 
 export default ArticleBlock; 
 
