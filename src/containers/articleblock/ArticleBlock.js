@@ -17,7 +17,7 @@ class ArticleBlock extends Component {
           }).then(function(myJson){
               let newsArticles = myJson.articles;
               fields = newsArticles.map((article)=>{
-                  let articleState = new Object(); 
+                  let articleState = {}; 
                   articleState.source = article.source.name; 
                   articleState.title = article.title; 
                   articleState.urlToImage = article.urlToImage;

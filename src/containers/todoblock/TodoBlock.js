@@ -29,11 +29,19 @@ class TodoBlock extends Component {
     }
     
    removeTodo(arg){
+    let oldtasks = this.state.tasks; 
+    let newTasks = oldtasks.filter(task =>{
+        return (task.key!=arg)
+    })
+    this.setState({tasks:newTasks}); 
     let postlistref= firebase.database().ref('/Tasks/Rohan/')
-    postlistref.child(arg)
-       let filtertasks = this.state.tasks
-       let newTasks = filtertasks.splice(arg); 
-       this.setState({tasks: newTasks});
+    postlistref.child(arg).set({
+        task: null
+    })
+    // postlistref.child(arg)
+    //    let filtertasks = this.state.tasks
+    //    let newTasks = filtertasks.splice(arg); 
+    //    this.setState({tasks: newTasks});
        
    } 
 
@@ -49,7 +57,7 @@ class TodoBlock extends Component {
     }).then(()=>{
         var len = this.state.length; 
         len = len+1;
-        let newData = new Object(); 
+        let newData = {}; 
         newData.task = data; 
         let newKey = postlistref.key; 
         newData.key= newKey; 
@@ -68,7 +76,7 @@ class TodoBlock extends Component {
     var listRef = firebase.database().ref('/Tasks/Rohan/'); 
     listRef.once('value', data =>{
     data.forEach(((child) => {
-     let newTasks = new Object(); 
+     let newTasks = {}; 
      newTasks.task = child.val().task; 
      newTasks.key= child.key; 
      temp.push(newTasks); }))
@@ -92,7 +100,7 @@ onInputChange(event){
         const finalTasks = (<div >
         {temp.map((todoItem, index) => { 
             console.log(todoItem); 
-            return (<li key={todoItem.key}><Todo task={todoItem.task}/><button id={index} className="RemoveTodo" onClick={() => this.removeTodo(index)}/></li>)
+            return (<li key={todoItem.key}><Todo task={todoItem.task}/><button id={index} className="RemoveTodo" onClick={() => this.removeTodo(todoItem.key)}/></li>)
 })}
 </div>)
         return(
