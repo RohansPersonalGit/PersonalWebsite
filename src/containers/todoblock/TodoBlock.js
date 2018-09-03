@@ -1,29 +1,18 @@
 import React,{Component} from 'react';
-
+import firebase from '../../services/firebase'
 import Todo from '../../components/Todo/Todo'; 
 import './TodoBlock.css'
-const firebase = require("firebase");
-const config = {
-    apiKey: "*****",
-    authDomain: "****",
-    databaseURL: "https://socialstudent-593f2.firebaseio.com",
-    projectId: "socialstudent-593f2",
-    storageBucket: "socialstudent-593f2.appspot.com",
-    messagingSenderId: "****"
-  };
-
-
-
-firebase.initializeApp(config);
-//REMEMBER YOU ARE USEING FIREBASE NOT FIRESTORE CHECK FIRESASE FOR MROE INFO
 class TodoBlock extends Component {
-    state ={
+   
+   constructor(props){
+       
+       super(props); 
+       this.state =  {
+        user: props.user, 
         tasks: [],
         length: 0,
         query: ""
-    }
-   constructor(props){
-       super(props); 
+    }; 
     this.submitData = this.submitData.bind(this);
     this.onInputChange = this.onInputChange.bind(this); 
     }
@@ -31,10 +20,10 @@ class TodoBlock extends Component {
    removeTodo(arg){
     let oldtasks = this.state.tasks; 
     let newTasks = oldtasks.filter(task =>{
-        return (task.key!=arg)
+        return (task.key!==arg)
     })
     this.setState({tasks:newTasks}); 
-    let postlistref= firebase.database().ref('/Tasks/Rohan/')
+    let postlistref= firebase.database().ref('/Tasks/' + this.state.user )
     postlistref.child(arg).set({
         task: null
     })
@@ -51,7 +40,7 @@ class TodoBlock extends Component {
    submitData(event){
     event.preventDefault(); 
     var data = this.state.query; 
-    let postlistref= firebase.database().ref('/Tasks/Rohan/').push()
+    let postlistref= firebase.database().ref('/Tasks/' + this.state.user).push()
     postlistref.set({
         task: data
     }).then(()=>{
@@ -73,7 +62,7 @@ class TodoBlock extends Component {
    componentDidMount(){
        console.log("hsdfas"); 
     var temp=[]; 
-    var listRef = firebase.database().ref('/Tasks/Rohan/'); 
+    var listRef = firebase.database().ref('/Tasks/' + this.state.user); 
     listRef.once('value', data =>{
     data.forEach(((child) => {
      let newTasks = {}; 

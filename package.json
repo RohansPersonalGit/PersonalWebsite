@@ -8,7 +8,8 @@
     "firebase-admin": "^6.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "reactjs-popup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

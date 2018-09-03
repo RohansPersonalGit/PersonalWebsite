@@ -3,8 +3,9 @@ import './ArticleCard.css';
 const ArticleCard = (props) => {  
         return (
             <div className= "ArticleCard">
+            {props.button}
                 <p>{props.title}</p>
-                <img src= {props.url} /> 
+                <img alt= "" src= {props.url} /> 
             </div>
         )
 
