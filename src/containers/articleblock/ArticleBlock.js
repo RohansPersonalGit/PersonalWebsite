@@ -21,6 +21,7 @@ class ArticleBlock extends Component {
                   let articleState = {}; 
                   articleState.source = article.source.name; 
                   articleState.title = article.title;
+                  articleState.link = article.url
                   articleState.description= article.description; 
                   articleState.urlToImage = article.urlToImage;
                   return articleState; 
@@ -44,8 +45,8 @@ class ArticleBlock extends Component {
             return (
             <div key= '1'className="ArticleBlock">
                   {newsArticles.map((article, index) =>{ 
-                      let modal = (<ArticleModal desc = {article.description}/> );
-                return (<li key= {index}><ArticleCard button={modal} source= {article.source.name} title= {article.title} url = {article.urlToImage}/></li>)
+                      //let modal = (<ArticleModal desc = {article.description}/> );
+                return (<li key= {index}><ArticleCard  link={article.link} desc={article.description}source= {article.source.name} title= {article.title} url = {article.urlToImage}/></li>)
             })} 
                 </div> 
         
