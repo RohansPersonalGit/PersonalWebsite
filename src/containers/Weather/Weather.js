@@ -4,7 +4,7 @@ class Weather extends Component {
     state = {
         weatherIn: [
           {
-            city: "", temp: "", description:""
+            city: "", temp: "", description:"", iconUrl:"", loaded: false
           }
         ]
       }
@@ -22,16 +22,24 @@ class Weather extends Component {
       ).then(function(response){
         return response.json(); 
       }).then(function(myJson){
-        weatherInfo.name = myJson.name; 
+        let urlIcon = "http://openweathermap.org/img/w/"
+        weatherInfo.name = myJson.name;
+        weatherInfo.icon = myJson.weather[0].icon; 
+        console.log(weatherInfo.icon); 
         weatherInfo.temp = myJson.main.temp;
         weatherInfo.description = myJson.weather[0].description;
+        let png = ".png"; 
+        let fullurl = urlIcon + weatherInfo.icon + png; 
         this.setState({
           weatherIn: 
             [{
               city: weatherInfo.name, 
               temp: weatherInfo.temp,
-              description: weatherInfo.description
-            }]})   
+              description: weatherInfo.description,
+              iconUrl: fullurl,
+              loaded: true
+            }]})
+            console.log(this.state.weatherIn[0].iconUrl);    
       }.bind(this)).catch(function(){
         console.log("fetch failed"); 
         this.setState({
@@ -43,10 +51,19 @@ class Weather extends Component {
             }]}) 
       })
     }
-    render(){  
-      console.log(this.state.weatherIn[0].city)             
+    render(){ 
+      let imgs = (this.state.weatherIn[0].iconUrl);  
+      if (this.state.weatherIn[0].loaded){
+        console.log(imgs); 
+        var imgtag = (<img src={imgs} height= {100} width={100} />)
+      }
+      else{
+        var imgtag = (<img className="WeatherPhoto"src={imgs} height= {0} />)
+
+      }            
         return (
         <div className="Weather" >
+        {imgtag}
             <p className="WeatherContent">City: {this.state.weatherIn[0].city}</p>
             <p className="WeatherContent">Temperature: {this.state.weatherIn[0].temp}</p>
             <p className="WeatherContent">Description: {this.state.weatherIn[0].description}</p>        

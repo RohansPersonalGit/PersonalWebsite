@@ -13,9 +13,7 @@ class App extends Component {
     this.login = this.login.bind(this); // <-- add this line
     this.logout = this.logout.bind(this); // <-- add this line
   }
-  handleChange(e) {
-    /* ... */
-  }
+ 
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -53,10 +51,11 @@ class App extends Component {
       {this.state.user ?  <div><header className="App-header">
       <img src={this.state.user.photoURL} className="Profile-Photo" />
           <h1 className="App-title">SocialStudent</h1>
-          <button onClick={this.logout}>Log Out</button>                
+          <button onClick={this.logout}>Log Out</button>
+          <Weather/>                
         </header>
        <ArticleBlock/>
-        <Weather/>
+        
         <TodoBlock user= {this.state.user.uid} />
         </div> : 
           <header className="App-header">

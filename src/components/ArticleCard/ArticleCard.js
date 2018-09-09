@@ -30,11 +30,6 @@ const styles = {
     width: 200,
     height: 230,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     marginBottom: 0,
     fontSize: 14,
@@ -46,7 +41,6 @@ const styles = {
 
 function ArticleCard(props) {
   const { classes } = props;
-  const bull = <span className={classes.bullet}>•</span>;
   console.log(props); 
   return (
     <Card className={classes.card}>

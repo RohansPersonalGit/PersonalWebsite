@@ -1,14 +1,18 @@
 .Weather{
     width: 20%; 
-    margin: 16px auto; 
-    border: 1px solid #eee; 
-    box-shadow: 0 2px 3px #ccc ;
-
     text-align: center; 
     position: absolute;
-    top: 53px;
-    right: 000px;
+    float: right;
+    top: 0px;
+    right: 0px;
+    
 }
 .WeatherContent{
     color: white; 
+    margin: 0%;
+}
+.WeatherPhoto{
+    max-width: 100%;
+    height: auto;
+    margin: 0%;
 }

@@ -4,8 +4,11 @@
     margin-right: 1px;
     margin-left: 0px;
     list-style-type: none;
-    position: fixed;
-    left: 0px; 
-    top: 150px; 
+    position: relative;
+    right: 0px; 
+    float:right;
+    top: 0px;
+    overflow: scroll;
+     
 
 }
